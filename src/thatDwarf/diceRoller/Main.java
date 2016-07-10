@@ -1,33 +1,6 @@
 package thatDwarf.diceRoller;
 
-import java.util.Scanner;
 import java.util.Random;
-
-class DiceSetup {
-
-    Scanner user_input = new Scanner(System.in);            // Input setup
-
-    public int amountDice() {
-
-        System.out.println("Enter the amount of dice to roll.");
-        int diceAmount = user_input.nextInt();                  // Waits for input. strings end app
-        return diceAmount;
-    }
-
-    public int facesDice() {
-
-        System.out.println("Enter the amount of side the dice have.");
-        int diceSides = user_input.nextInt();                   // Waits for input. strings end app
-        return diceSides;
-    }
-
-    public int modDice() {
-
-        System.out.println("Enter roll Modifier (+/-).");
-        int diceMod = user_input.nextInt();                     // Waits for input. strings end app
-        return diceMod;
-    }
-}
 
 public class Main extends DiceSetup {
 
@@ -42,18 +15,6 @@ public class Main extends DiceSetup {
         int diceSides = diceRequest.facesDice();
         int diceMod = diceRequest.modDice();
 
-
-/*        Scanner user_input = new Scanner(System.in);            // Input setup
-
-        System.out.println("Enter the amount of dice to roll.");
-        int diceAmount = user_input.nextInt();                  // Waits for input. strings end app
-
-        System.out.println("Enter the amount of side the dice have.");
-        int diceSides = user_input.nextInt();                   // Waits for input. strings end app
-
-        System.out.println("Enter roll Modifier (+/-).");
-        int diceMod = user_input.nextInt();                     // Waits for input. strings end app
-*/
         if (diceAmount == 0 || diceSides == 0) {                //Prevents loop error with diceAmount and randomGenerator error with Sides
             System.out.println("Cannot Roll 0 dice or 0 sided dice.");
         }
