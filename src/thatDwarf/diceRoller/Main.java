@@ -10,10 +10,10 @@ public class Main extends DiceSetup {
         int critTotal = 0;
         int failTotal = 0;
 
-        DiceSetup diceRequest = new DiceSetup();
-        int diceAmount = diceRequest.diceAmount;
-        int diceSides = diceRequest.diceSides;
-        int diceMod = diceRequest.diceMod;
+        DiceSetup diceRequest = new DiceSetup();                // create new dice setup object
+        int diceAmount = diceRequest.getDiceAmount();
+        int diceSides = diceRequest.getDiceSides();                  // takes values from diceRequest object
+        int diceMod = diceRequest.getDiceMod();
 
         if (diceAmount == 0 || diceSides == 0) {                //Prevents loop error with diceAmount and randomGenerator error with Sides
             System.out.println("Cannot Roll 0 dice or 0 sided dice.");

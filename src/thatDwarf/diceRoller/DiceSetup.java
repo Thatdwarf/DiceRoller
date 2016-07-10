@@ -2,10 +2,10 @@ package thatDwarf.diceRoller;
 
 import java.util.Scanner;
 
-class DiceSetup {
-    int diceAmount;
-    int diceSides;
-    int diceMod;
+public class DiceSetup {
+    private int diceAmount;
+    private int diceSides;
+    private int diceMod;
 
     Scanner user_input = new Scanner(System.in);            // Input setup
 
@@ -17,7 +17,20 @@ class DiceSetup {
         System.out.println("Enter roll Modifier (+/-).");
         diceMod = user_input.nextInt();                     // Waits for input. strings end app
     }
-//
+
+    public int getDiceAmount() {
+        return diceAmount;
+    }
+
+    public int getDiceSides() {
+        return diceSides;
+    }
+
+    public int getDiceMod() {
+        return diceMod;
+    }
+
+    //
 //    public int amountDice() {
 //
 //        System.out.println("Enter the amount of dice to roll.");
