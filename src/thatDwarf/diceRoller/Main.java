@@ -11,9 +11,9 @@ public class Main extends DiceSetup {
         int failTotal = 0;
 
         DiceSetup diceRequest = new DiceSetup();
-        int diceAmount = diceRequest.amountDice();
-        int diceSides = diceRequest.facesDice();
-        int diceMod = diceRequest.modDice();
+        int diceAmount = diceRequest.diceAmount;
+        int diceSides = diceRequest.diceSides;
+        int diceMod = diceRequest.diceMod;
 
         if (diceAmount == 0 || diceSides == 0) {                //Prevents loop error with diceAmount and randomGenerator error with Sides
             System.out.println("Cannot Roll 0 dice or 0 sided dice.");
