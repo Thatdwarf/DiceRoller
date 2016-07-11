@@ -1,26 +1,35 @@
 package thatDwarf.diceRoller;
 
+import java.util.Scanner;
+
 public class Dice {
-    private int DiceAmount = 0;
-    private int DiceSides = 0;
-    private int DiceMod = 0;
+    private int diceAmount;
+    private int diceSides;
+    private int diceMod;
+
+    Scanner user_input = new Scanner(System.in);            // Input setup
 
 
-    public Dice(int diceAmount, int diceSides, int diceMod) {
-        DiceAmount = diceAmount;
-        DiceSides = diceSides;
-        DiceMod = diceMod;
+    // Constructor
+    Dice() {
+        System.out.println("Enter the amount of dice to roll.");
+        diceAmount = user_input.nextInt();                  // Waits for input. strings end app
+        System.out.println("Enter the amount of side the dice have.");
+        diceSides = user_input.nextInt();                   // Waits for input. strings end app
+        System.out.println("Enter roll Modifier (+/-).");
+        diceMod = user_input.nextInt();                     // Waits for input. strings end app
     }
 
+    // Accessors
     public int getDiceAmount() {
-        return DiceAmount;
+        return diceAmount;
     }
 
     public int getDiceSides() {
-        return DiceSides;
+        return diceSides;
     }
 
     public int getDiceMod() {
-        return DiceMod;
+        return diceMod;
     }
 }
