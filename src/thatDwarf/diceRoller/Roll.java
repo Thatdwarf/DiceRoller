@@ -1,6 +1,7 @@
 package thatDwarf.diceRoller;
 
 import java.util.Random;
+import java.util.Scanner;
 
 public class Roll {
 
@@ -13,6 +14,17 @@ public class Roll {
         int diceSides = in.getDiceSides();                  // takes values from Dice1 object
         int diceMod = in.getDiceMod();
 
+        if (diceAmount == 0 && diceSides == 0 && diceMod == 0) {
+
+            Scanner user_input = new Scanner(System.in);            // Input setup
+
+            System.out.println("Enter the amount of dice to roll.");
+            diceAmount = user_input.nextInt();                  // Waits for input. strings end app
+            System.out.println("Enter the amount of side the dice have.");
+            diceSides = user_input.nextInt();                   // Waits for input. strings end app
+            System.out.println("Enter roll Modifier (+/-).");
+            diceMod = user_input.nextInt();
+        }
         if (diceAmount == 0 || diceSides == 0) {                //Prevents loop error with diceAmount and randomGenerator error with Sides
             System.out.println("Cannot Roll 0 dice or 0 sided dice.");
         } else {
@@ -50,6 +62,30 @@ public class Roll {
             System.out.println("Total Result = " + result);
         }
     }
-}
 
+    public static int hiddenRoll(Dice in) {
+        int total = 0;
+
+        int diceAmount = in.getDiceAmount();
+        int diceSides = in.getDiceSides();                  // takes values from Dice1 object
+        int diceMod = in.getDiceMod();
+
+        if (diceAmount == 0 || diceSides == 0) {                //Prevents loop error with diceAmount and randomGenerator error with Sides
+            System.out.println("Error in Dice inputs.");
+        }
+
+        for (int i = 1; i <= diceAmount; ++i) {
+                Random randomGenerator = new Random();
+                int dieRoll = randomGenerator.nextInt(diceSides);
+                switch (dieRoll) {
+                    default:
+                        System.out.print(dieRoll + ",");
+                        total += dieRoll;
+                        break;
+                }
+            }
+        total += diceMod;
+        return total;
+    }
+    }
 
