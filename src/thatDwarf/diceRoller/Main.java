@@ -2,7 +2,7 @@ package thatDwarf.diceRoller;
 
 import java.util.Scanner;
 
-public class Main extends Roll {
+public class Main extends Rolls {
 
     public static void main(String[] args) {
 
@@ -59,27 +59,30 @@ public class Main extends Roll {
         Dice d20 = new Dice(1, 20, 0);
 
         while (bossHealth > 0 && playerHealth > 0) {                // Fight sequence start
+
+            System.out.println("");
             System.out.println("Round : " + roundNum);
+            System.out.println("");
 
             System.out.println("Player attacks " + bossName);       // player attack
             roll = hiddenRoll(d20);
-            System.out.println("Player Rolls:" + roll);
+            System.out.println("Player Rolls : " + roll);
             if (roll > bossArmour) {
-                System.out.println("Player wounds" + bossName + "dealing " + playerAttack + "damage.");
+                System.out.println("Player wounds " + bossName + " dealing " + playerAttack + " damage.");
                 bossHealth -= playerAttack;
-                System.out.println(bossName + "has " + bossHealth + "remaining.");
+                System.out.println(bossName + "has " + bossHealth + " remaining.");
             }
             else {
-                System.out.println("Player was unable to injure" + bossName +".");
+                System.out.println("Player was unable to injure " + bossName +".");
             }
 
-            System.out.println(bossName + "attacks Player");        // boss attack
+            System.out.println(bossName + " attacks Player");        // boss attack
             roll = hiddenRoll(d20);
-            System.out.println(bossName + " Rolls:" + roll +".");
+            System.out.println(bossName + " Rolls : " + roll +".");
             if (roll > playerArmour) {
-                System.out.println(bossName + " wounds Player dealing " + bossAttack + "damage.");
+                System.out.println(bossName + " wounds Player dealing " + bossAttack + " damage.");
                 playerHealth -= bossAttack;
-                System.out.println("Player has " + playerHealth + "remaining.");
+                System.out.println("Player has " + playerHealth + " remaining.");
             }
             else {
                 System.out.println(bossName + " was unable to injure Player.");
@@ -87,16 +90,22 @@ public class Main extends Roll {
             roundNum++;
         }
 
-        if (playerHealth >= 0 && bossHealth <= 0){
+        if (playerHealth > 0 && bossHealth <= 0){
+            System.out.println("");
             System.out.println("Player has defeated " + bossName);
             System.out.println("Congratulations ");
             System.out.println("Play FF7 victory theme in your head now.");
         }
         else if (playerHealth <= 0 && bossHealth <=0) {
-            System.out.println("Both Player and " + bossName + "will not be returning from this battle.");
+            System.out.println("");
+            System.out.println("Both Player and " + bossName + " will not be returning from this battle.");
         }
-        else if (playerHealth <= 0 && bossHealth >= 0) {
-            System.out.println(bossName + "has defeated the Player better luck next time");
+        else if (playerHealth <= 0 && bossHealth > 0) {
+            System.out.println("");
+            System.out.println(bossName + " has defeated the Player better luck next time.");
+        }
+        else{
+            System.out.println(" Error in post battle calculation.");
         }
     }
 }

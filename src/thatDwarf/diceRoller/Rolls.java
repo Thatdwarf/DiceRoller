@@ -3,7 +3,7 @@ package thatDwarf.diceRoller;
 import java.util.Random;
 import java.util.Scanner;
 
-public class Roll {
+public class Rolls {
 
     public static void diceRoll(Dice in) {
         int total = 0;
@@ -79,7 +79,6 @@ public class Roll {
                 int dieRoll = randomGenerator.nextInt(diceSides);
                 switch (dieRoll) {
                     default:
-                        System.out.print(dieRoll + ",");
                         total += dieRoll;
                         break;
                 }
