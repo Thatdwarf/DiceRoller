@@ -1,17 +1,17 @@
 package thatDwarf.diceRoller;
 
-public class Boss {
+public class Boss extends Rolls {
         private String bossName;
         private int bossHealth;
         private int bossArmour;
         private int bossAttack;
 
         // Constructor
-        Boss(String bossName ,int bossHealth ,int bossArmour ,int bossAttack) {
+        Boss(String bossName ,Dice bossHealth ,Dice bossArmour ,Dice bossAttack ) {
             this.bossName = bossName;
-            this.bossHealth = bossHealth;
-            this.bossArmour = bossArmour;
-            this.bossAttack = bossAttack;
+            this.bossHealth = hiddenRoll(bossHealth);
+            this.bossArmour = hiddenRoll(bossArmour);
+            this.bossAttack = hiddenRoll(bossAttack);
         }
 
         // Accessors

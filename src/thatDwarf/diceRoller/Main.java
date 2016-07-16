@@ -6,12 +6,10 @@ public class Main extends Rolls {
 
     public static void main(String[] args) {
 
-        String rollOrBattle;
-
         System.out.println("Do you wish to roll or battle");
         System.out.println("To roll enter Roll, To battle enter Battle");
         Scanner user_input = new Scanner(System.in);            // Input setup
-        rollOrBattle = user_input.next();
+        String rollOrBattle = user_input.next();
 
         switch (rollOrBattle) {
             case "Roll":
@@ -21,7 +19,10 @@ public class Main extends Rolls {
 
             case "Battle":
                 System.out.println("Battling Deathwing");
-                Boss deathwing = new Boss("Deathwing", 100, 5, 10);
+                Dice bossHP = new Dice(3,20,100);           //103 - 160
+                Dice bossArmour = new Dice(1,10,4);         // 5  - 14
+                Dice bossAttack = new Dice(2,5,8);          // 10 - 18
+                Boss deathwing = new Boss("Deathwing", bossHP, bossArmour, bossAttack);
                 battle(deathwing);
                 break;
 
@@ -34,9 +35,13 @@ public class Main extends Rolls {
 
     public static void battle(Boss in) {
 
-        int playerHealth = 100;
+        System.out.println("Input your Name");
+        Scanner user_input = new Scanner(System.in);            // Input setup
+        String playerName = user_input.next();
+        int playerMaxHealth = 100;
+        int playerHealth = playerMaxHealth;
         int playerArmour = 5;
-        int playerAttack = 10;
+        Dice playerAttack = new Dice(2,10,0);
         int roundNum = 1;
         int roll;
 
@@ -45,10 +50,10 @@ public class Main extends Rolls {
         int bossArmour = in.getBossArmour();
         int bossAttack = in.getBossAttack();
 
-        System.out.println("Player Stats:");
-        System.out.println("Player Health = " + playerHealth);
-        System.out.println("Player Armour = " + playerArmour);
-        System.out.println("Player Attack = " + playerAttack);
+        System.out.println(playerName +" Stats:");
+        System.out.println(playerName +" Health = " + playerHealth);
+        System.out.println(playerName +" Armour = " + playerArmour);
+        System.out.println(playerName +" Attack = 2d10");
 
         System.out.println("Boss Stats:");
         System.out.println("Boss Name   = " + bossName);
@@ -64,45 +69,96 @@ public class Main extends Rolls {
             System.out.println("Round : " + roundNum);
             System.out.println("");
 
-            System.out.println("Player attacks " + bossName);       // player attack
-            roll = hiddenRoll(d20);
-            System.out.println("Player Rolls : " + roll);
-            if (roll > bossArmour) {
-                System.out.println("Player wounds " + bossName + " dealing " + playerAttack + " damage.");
-                bossHealth -= playerAttack;
-                System.out.println(bossName + "has " + bossHealth + " remaining.");
-            }
-            else {
-                System.out.println("Player was unable to injure " + bossName +".");
+            // PLAYERS TURN
+            System.out.println("Please enter your command. (enter Help for list of inputs)");
+            Scanner Opcode = new Scanner(System.in);            // Input setup
+            String OpCodePlayer = user_input.next();                // determines how player commits their turn
+
+            switch (OpCodePlayer) {                                     // Help check without using turn can add to main battle switch if i learn how to return to top of loop
+                                                                        // or can add more none turn using commands here
+                case "Help":
+                System.out.println("Current command list is:");
+                System.out.println("A : roll against the bosses armour if successful dealing your damage to the boss");
+                System.out.println("D : roll 1d20 to increase armour by 1 needs a roll of 11+ to succeed");
+                System.out.println("P : use a healing potion restoring 3d6+5 health");
+                System.out.println("Please enter a new command");
+                OpCodePlayer = user_input.next();
             }
 
-            System.out.println(bossName + " attacks Player");        // boss attack
+            switch (OpCodePlayer) {
+
+                case "A":
+                    System.out.println(playerName + " attacks " + bossName);
+                    roll = hiddenRoll(d20);
+                    System.out.println(playerName + " Rolls : " + roll);
+
+                    if (roll > bossArmour) {
+                        int damageRoll = hiddenRoll(playerAttack);
+                        System.out.println(playerName + " wounds " + bossName + " dealing " + damageRoll + " damage.");
+                        bossHealth -= damageRoll;
+                        System.out.println(bossName + " has " + bossHealth + " remaining.");
+                    } else {
+                        System.out.println(playerName + " was unable to injure " + bossName + ".");
+                        System.out.println(bossName + " has " + bossHealth + " remaining.");
+                    }
+                    break;
+
+                case "D":
+                    System.out.println(playerName + " attempts to prepare a defense (11+ to succeed)");
+                    roll = hiddenRoll(d20);
+                    System.out.println(playerName + " rolls a " + roll );
+                    if (roll >= 11){
+                        System.out.println(playerName + " succeeded now has +1 armour");
+                        playerArmour++;
+                        System.out.println(playerName + " now has " + playerArmour + " armour");
+                    }
+                    else System.out.println(playerName + " was not successful");
+                    break;
+
+                case "P":
+                    Dice potion = new Dice(3,6,5);
+                    int healing = hiddenRoll(potion);
+                    if (healing + playerHealth >= playerMaxHealth){
+                        healing = playerMaxHealth - playerHealth;
+                    }
+                    System.out.println(playerName + " drinks a healing potion restoring " + healing + " Health.");
+                    playerHealth = playerHealth + healing;
+                    System.out.println(playerName + " now has " + playerHealth + " Health.");
+                    break;
+
+                default:
+                    System.out.println("Incorrect input skipping turn");
+                    break;
+            }
+
+            // BOSS TURN
+            System.out.println(bossName + " attacks " + playerName + ".");        // boss attack
             roll = hiddenRoll(d20);
             System.out.println(bossName + " Rolls : " + roll +".");
             if (roll > playerArmour) {
-                System.out.println(bossName + " wounds Player dealing " + bossAttack + " damage.");
+                System.out.println(bossName + " wounds " + playerName + " dealing " + bossAttack + " damage.");
                 playerHealth -= bossAttack;
-                System.out.println("Player has " + playerHealth + " remaining.");
+                System.out.println(playerName + " has " + playerHealth + " remaining.");
             }
             else {
-                System.out.println(bossName + " was unable to injure Player.");
+                System.out.println(bossName + " was unable to injure " + playerName + ".");
             }
             roundNum++;
         }
 
         if (playerHealth > 0 && bossHealth <= 0){
             System.out.println("");
-            System.out.println("Player has defeated " + bossName);
+            System.out.println(playerName + " has defeated " + bossName);
             System.out.println("Congratulations ");
             System.out.println("Play FF7 victory theme in your head now.");
         }
         else if (playerHealth <= 0 && bossHealth <=0) {
             System.out.println("");
-            System.out.println("Both Player and " + bossName + " will not be returning from this battle.");
+            System.out.println("Both " + playerName + " and " + bossName + " will not be returning from this battle.");
         }
         else if (playerHealth <= 0 && bossHealth > 0) {
             System.out.println("");
-            System.out.println(bossName + " has defeated the Player better luck next time.");
+            System.out.println(bossName + " has defeated " + playerName + " better luck next time.");
         }
         else{
             System.out.println(" Error in post battle calculation.");
