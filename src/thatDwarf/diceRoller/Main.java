@@ -71,7 +71,6 @@ public class Main extends Rolls {
 
             // PLAYERS TURN
             System.out.println("Please enter your command. (enter Help for list of inputs)");
-            Scanner Opcode = new Scanner(System.in);            // Input setup
             String OpCodePlayer = user_input.next();                // determines how player commits their turn
 
             switch (OpCodePlayer) {                                     // Help check without using turn can add to main battle switch if i learn how to return to top of loop
