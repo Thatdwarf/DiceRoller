@@ -75,16 +75,15 @@ public class Rolls {
         }
 
         for (int i = 1; i <= diceAmount; ++i) {
-                Random randomGenerator = new Random();
-                int dieRoll = randomGenerator.nextInt(diceSides);
-                switch (dieRoll) {
-                    default:
-                        total += dieRoll;
-                        break;
-                }
+            Random randomGenerator = new Random();
+            int dieRoll = randomGenerator.nextInt(diceSides);
+            switch (dieRoll) {
+                default:
+                    total += dieRoll;
+                    break;
             }
+        }
         total += diceMod;
         return total;
     }
-    }
-
+}
