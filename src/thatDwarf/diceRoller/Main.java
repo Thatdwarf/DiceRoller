@@ -15,8 +15,25 @@ public class Main{
 
         switch (rollOrBattle) {
             case "Roll":
+                boolean repeat = true;
+
                 Dice Dice1 = new Dice(0,0,0);                // create new dice object with settings of 0 0 0
-                diceRoll(Dice1);                            // perform diceRoll method on created Dice
+                while (repeat == true) {
+                    diceRoll(Dice1);                            // perform diceRoll method on created Dice
+                    System.out.println("Do you want to roll again? (Y/N)");
+                    String repeatRequest = user_input.next();
+                    switch (repeatRequest) {
+                        case "Y":
+                            Dice1.setDiceAmount(0);
+                            Dice1.setDiceSides(0);
+                            Dice1.setDiceMod(0);
+                            break;
+                        case "N":
+                            repeat = false;
+                            break;
+                    }
+                }
+
                 break;
 
             case "Battle":
