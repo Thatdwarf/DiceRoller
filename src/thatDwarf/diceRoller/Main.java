@@ -15,6 +15,8 @@ public class Main{
 
         switch (rollOrBattle) {
             case "Roll":
+            case "roll":
+            case "ROLL":
                 boolean repeat = true;
 
                 Dice Dice1 = new Dice(0,0,0);                // create new dice object with settings of 0 0 0
@@ -23,20 +25,25 @@ public class Main{
                     System.out.println("Do you want to roll again? (Y/N)");
                     String repeatRequest = user_input.next();
                     switch (repeatRequest) {
+                        case "y":
                         case "Y":
                             Dice1.setDiceAmount(0);
                             Dice1.setDiceSides(0);
                             Dice1.setDiceMod(0);
                             break;
+                        case "n":
                         case "N":
                             repeat = false;
                             break;
+                        default:
+                            System.out.println("ERROR : Incorrect input : Repeating Roll");
                     }
                 }
 
                 break;
-
             case "Battle":
+            case "battle":
+            case "BATTLE":
                 battleSetup();                              // go to battle setup method
                 break;
 
